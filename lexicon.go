@@ -33,16 +33,30 @@ func CountChars(words map[string]bool) map[rune]int {
 func CountSubstrings(words map[string]bool, length int) map[string]int {
 	substrings := make(map[string]int)
 	for word := range words {
-		// Cast word as a rune slice.
-		runes := []rune(word)
-		n := len(runes)
-		if n >= length {
-			max := n - length
-			for i := 0; i <= max; i++ {
-				// Cast portion of rune slice back to string.
-				substring := string(runes[i : i+length])
-				substrings[substring]++
-			}
+		list := ListSubstrings(word, length)
+		for _, substring := range list {
+			substrings[substring]++
+		}
+	}
+	return substrings
+}
+
+// ListSubstrings lists all the substrings of a word of given length.
+func ListSubstrings(word string, length int) []string {
+	// Cast word as a rune slice.
+	runes := []rune(word)
+	n := len(runes)
+	subcount := n - length + 1
+	if subcount < 0 {
+		subcount = 0
+	}
+	substrings := make([]string, subcount)
+	if n >= length {
+		max := n - length
+		for i := 0; i <= max; i++ {
+			// Cast portion of rune slice back to string.
+			substring := string(runes[i : i+length])
+			substrings = append(substrings, substring)
 		}
 	}
 	return substrings
