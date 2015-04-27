@@ -29,6 +29,25 @@ func CountChars(words map[string]bool) map[rune]int {
 	return chars
 }
 
+// CountSubstrings counts all the substrings of given length in a language lexicon.
+func CountSubstrings(words map[string]bool, length int) map[string]int {
+	substrings := make(map[string]int)
+	for word := range words {
+		// Cast word as a rune slice.
+		runes := []rune(word)
+		n := len(runes)
+		if n >= length {
+			max := n - length
+			for i := 0; i <= max; i++ {
+				// Cast portion of rune slice back to string.
+				substring := string(runes[i : i+length])
+				substrings[substring]++
+			}
+		}
+	}
+	return substrings
+}
+
 // LoadAllLanguages loads all the language files.
 func LoadAllLanguages(langDir string) map[string]map[string]bool {
 	// Load the languages.
