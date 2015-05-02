@@ -1,4 +1,4 @@
-package lexicon
+package lex
 
 import (
 	"bufio"
@@ -29,20 +29,20 @@ func CountChars(words map[string]bool) map[rune]int {
 	return chars
 }
 
-// CountSubstrings counts all the substrings of given length in a language lexicon.
-func CountSubstrings(words map[string]bool, length int) map[string]int {
-	substrings := make(map[string]int)
+// CountSubstr counts all the substrings of given length in a language lexicon.
+func CountSubstr(words map[string]bool, length int) map[string]int {
+	substrs := make(map[string]int)
 	for word := range words {
-		list := ListSubstrings(word, length)
-		for _, substring := range list {
-			substrings[substring]++
+		list := ListSubstr(word, length)
+		for _, substr := range list {
+			substrs[substr]++
 		}
 	}
-	return substrings
+	return substrs
 }
 
-// ListSubstrings lists all the substrings of a word of given length.
-func ListSubstrings(word string, length int) []string {
+// ListSubstr lists all the substrings of a word of given length.
+func ListSubstr(word string, length int) []string {
 	// Cast word as a rune slice.
 	runes := []rune(word)
 	n := len(runes)
@@ -50,20 +50,20 @@ func ListSubstrings(word string, length int) []string {
 	if subcount < 0 {
 		subcount = 0
 	}
-	substrings := make([]string, subcount)
+	substrs := make([]string, subcount)
 	if n >= length {
 		max := n - length
 		for i := 0; i <= max; i++ {
 			// Cast portion of rune slice back to string.
-			substring := string(runes[i : i+length])
-			substrings = append(substrings, substring)
+			substr := string(runes[i : i+length])
+			substrs = append(substrs, substr)
 		}
 	}
-	return substrings
+	return substrs
 }
 
-// LoadAllLanguages loads all the language files.
-func LoadAllLanguages(langDir string) map[string]map[string]bool {
+// LoadAllLangs loads all the language files.
+func LoadAllLangs(langDir string) map[string]map[string]bool {
 	// Load the languages.
 	langFiles, err := ioutil.ReadDir(langDir)
 	if err != nil {
@@ -73,13 +73,13 @@ func LoadAllLanguages(langDir string) map[string]map[string]bool {
 	for _, langFile := range langFiles {
 		name := langFile.Name()
 		path := path.Join(langDir, name)
-		langWords[name] = LoadLanguage(path)
+		langWords[name] = LoadLang(path)
 	}
 	return langWords
 }
 
-// LoadLanguage loads a language file.
-func LoadLanguage(langFile string) map[string]bool {
+// LoadLang loads a language file.
+func LoadLang(langFile string) map[string]bool {
 	// Open file.
 	handle, err := os.Open(langFile)
 	if err != nil {
