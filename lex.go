@@ -29,11 +29,11 @@ func CountChars(words map[string]bool) map[rune]int {
 	return chars
 }
 
-// CountSubstr counts all the substrings of given length in a language lexicon.
-func CountSubstr(words map[string]bool, length int) map[string]int {
+// CountSubstrs counts all the substrings of given length in a language lexicon.
+func CountSubstrs(words map[string]bool, length int) map[string]int {
 	substrs := make(map[string]int)
 	for word := range words {
-		list := ListSubstr(word, length)
+		list := ListSubstrs(word, length)
 		for _, substr := range list {
 			substrs[substr]++
 		}
@@ -41,8 +41,8 @@ func CountSubstr(words map[string]bool, length int) map[string]int {
 	return substrs
 }
 
-// ListSubstr lists all the substrings of a word of given length.
-func ListSubstr(word string, length int) []string {
+// ListSubstrs lists all the substrings of a word of given length.
+func ListSubstrs(word string, length int) []string {
 	// Cast word as a rune slice.
 	runes := []rune(word)
 	n := len(runes)
