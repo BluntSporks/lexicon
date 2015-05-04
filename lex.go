@@ -18,8 +18,8 @@ func DefaultDataPath() string {
 	return dir
 }
 
-// CountChars counts all the characters in a language lexicon.
-func CountChars(words map[string]bool) map[rune]int {
+// CntChars counts all the characters in a language lexicon.
+func CntChars(words map[string]bool) map[rune]int {
 	chars := make(map[rune]int)
 	for word := range words {
 		for _, ch := range word {
@@ -29,8 +29,8 @@ func CountChars(words map[string]bool) map[rune]int {
 	return chars
 }
 
-// CountSubstrs counts all the substrings of given length in a language lexicon.
-func CountSubstrs(words map[string]bool, length int) map[string]int {
+// CntSubstrs counts all the substrings of given length in a language lexicon.
+func CntSubstrs(words map[string]bool, length int) map[string]int {
 	substrs := make(map[string]int)
 	for word := range words {
 		list := ListSubstrs(word, length)
@@ -46,11 +46,11 @@ func ListSubstrs(word string, length int) []string {
 	// Cast word as a rune slice.
 	runes := []rune(word)
 	n := len(runes)
-	subcount := n - length + 1
-	if subcount < 0 {
-		subcount = 0
+	subcnt := n - length + 1
+	if subcnt < 0 {
+		subcnt = 0
 	}
-	substrs := make([]string, subcount)
+	substrs := make([]string, subcnt)
 	if n >= length {
 		max := n - length
 		for i := 0; i <= max; i++ {
