@@ -9,11 +9,11 @@ import (
 	"strings"
 )
 
-// DefaultDataPath gets the lexicon word list file location from the LEXICON_DATA environment variable.
+// DefaultDataPath gets the lexicon word list file location from the LEX_DATA environment variable.
 func DefaultDataPath() string {
-	dir := os.Getenv("LEXICON_DATA")
+	dir := os.Getenv("LEX_DATA")
 	if dir == "" {
-		log.Fatal("Set LEXICON_DATA variable to directory of lexicon data files")
+		log.Fatal("Set LEX_DATA variable to directory of lexicon data files")
 	}
 	return dir
 }
